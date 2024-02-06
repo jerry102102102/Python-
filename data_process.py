@@ -16,17 +16,16 @@ def json_to_csv_hp(json_file, csv_file):
     with open(json_file, 'r') as f:
         data = json.load(f)
 
-    # 提取表头
+    # 提取header
     headers = list(data["historicalPriceFull"]["historical"][0].keys())
-    headers.insert(0, "symbol")  # 将 "symbol" 插入到第一个位置
+    headers.insert(0, "symbol")  # 插入symbol
 
     with open(csv_file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=headers)
 
-        # 写入表头
         writer.writeheader()
 
-        # 逐行写入数据
+        # 寫入資料
         for row in data["historicalPriceFull"]["historical"]:
             row["symbol"] = data["historicalPriceFull"]["symbol"]  # 添加 "symbol"
             writer.writerow(row)
